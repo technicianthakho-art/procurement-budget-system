@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ระบบบริหารงานจัดซื้อและงบประมาณ - อบต.ท่าก๊อ</title>
   
-  <!-- Google Fonts: Sarabun (ฟอนต์มีหัว อ่านง่าย เป็นทางการ) -->
+  <!-- Google Fonts: Sarabun (ฟอนต์ไทยมีหัว อ่านง่าย สะอาดตา) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
+
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -54,20 +54,17 @@
       background: #CBD5E1;
       border-radius: 4px;
     }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-      background: #94A3B8;
-    }
   </style>
 </head>
 <body class="bg-slate-50 min-h-screen flex flex-col antialiased">
 
   <!-- ============================================================================ -->
-  <!-- 1. TOP HEADER NAVIGATION RIBBON (INTELLIGENT BLUE STYLE) -->
+  <!-- 1. HEADER NAVIGATION (INTELLIGENT BLUE + ADMIN LOGO & BUTTON) -->
   <!-- ============================================================================ -->
   <header class="bg-brand-navy text-white shadow-lg sticky top-0 z-30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-xl shadow">
+        <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-xl shadow">
           <i class="fa-solid fa-building-columns"></i>
         </div>
         <div>
@@ -78,9 +75,9 @@
       
       <div class="flex items-center space-x-3">
         <span id="admin-badge" class="hidden bg-emerald-500/20 text-emerald-300 text-xs px-3 py-1 rounded-full border border-emerald-500/30 font-medium">
-          <i class="fa-solid fa-user-shield mr-1"></i> โหมดผู้ดูแลระบบ
+          <i class="fa-solid fa-user-shield mr-1"></i> โหมดผู้ดูแลระบบ (Admin)
         </span>
-        <button id="auth-btn" onclick="openAuthModal()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-medium px-4 py-2 rounded-lg transition duration-200 flex items-center space-x-2 shadow">
+        <button id="auth-btn" onclick="openAuthModal()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-medium px-4 py-2 rounded-xl transition duration-200 flex items-center space-x-2 shadow">
           <i class="fa-solid fa-lock"></i>
           <span id="auth-btn-text">เข้าสู่ระบบ (Admin)</span>
         </button>
@@ -88,112 +85,157 @@
     </div>
   </header>
 
-  <!-- MAIN CONTENT CONTAINER -->
+  <!-- MAIN CONTAINER -->
   <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
 
     <!-- ============================================================================ -->
-    <!-- 2. EXECUTIVE BUDGET DASHBOARD (TOP RIBBON PANEL) -->
+    <!-- 2. DETAILED EXECUTIVE BUDGET DASHBOARD -->
     <!-- ============================================================================ -->
-    <section class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-      <div class="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-slate-100 mb-4 gap-2">
+    <section class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-slate-100 gap-2">
         <div>
           <h2 class="text-base font-bold text-brand-navy flex items-center">
             <i class="fa-solid fa-chart-pie text-brand-accent mr-2"></i>
-            สรุปกรอบงบประมาณตามข้อบัญญัติ (ปีงบประมาณ <span id="dash-fiscal-year" class="ml-1 text-brand-accent">2570</span>)
+            สรุปกรอบงบประมาณตามข้อบัญญัติรายจ่ายประจำปี 2570 (ฉบับละเอียด)
           </h2>
-          <p class="text-xs text-slate-500">ข้อมูลเปรียบเทียบกรอบงบประมาณตั้งไว้ วงเงินผูกพัน/ตัดจ่าย และงบประมาณคงเหลือจัดสรรได้</p>
+          <p class="text-xs text-slate-500">แสดงภาพรวมยอดตั้งไว้ วงเงินผูกพัน/ตัดโอน และกรอบงบประมาณคงเหลือจัดสรรได้</p>
         </div>
-        <button onclick="fetchInitialData()" class="text-xs text-slate-500 hover:text-brand-accent transition flex items-center space-x-1 self-start md:self-auto">
+        <button onclick="fetchInitialData()" class="text-xs text-slate-500 hover:text-brand-accent transition flex items-center space-x-1">
           <i class="fa-solid fa-rotate-right"></i>
           <span>อัปเดตข้อมูล</span>
         </button>
       </div>
 
-      <!-- KPI Cards Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <!-- Card 1: Total Allocated -->
-        <div class="bg-slate-50 rounded-xl p-4 border border-slate-200/80">
+      <!-- Top Executive Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
           <div class="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">กรอบงบตั้งไว้รวม</div>
-          <div id="dash-total-budget" class="text-2xl font-bold text-brand-navy">0.00 ฿</div>
-          <div class="text-xs text-slate-400 mt-1">จากข้อบัญญัติงบประมาณรายจ่ายประจำปี</div>
+          <div id="dash-total-budget" class="text-2xl font-bold text-brand-navy">21,511,470.00 ฿</div>
+          <div class="text-xs text-slate-400 mt-1">จากข้อบัญญัติงบประมาณปี 2570</div>
         </div>
 
-        <!-- Card 2: Committed / Disbursed -->
         <div class="bg-blue-50/50 rounded-xl p-4 border border-blue-100">
           <div class="text-xs font-medium text-blue-600 uppercase tracking-wider mb-1">ผูกพัน / ตัดโอนแล้ว</div>
           <div id="dash-disbursed-budget" class="text-2xl font-bold text-blue-900">0.00 ฿</div>
           <div class="text-xs text-blue-600/70 mt-1" id="dash-disbursed-percent">0.00% ของกรอบงบรวม</div>
         </div>
 
-        <!-- Card 3: Remaining Available -->
         <div class="bg-emerald-50/50 rounded-xl p-4 border border-emerald-100">
           <div class="text-xs font-medium text-emerald-600 uppercase tracking-wider mb-1">กรอบงบคงเหลือจัดสรรได้</div>
-          <div id="dash-remaining-budget" class="text-2xl font-bold text-emerald-900">0.00 ฿</div>
-          <div class="text-xs text-emerald-600/70 mt-1" id="dash-remaining-percent">0.00% คงเหลือ</div>
+          <div id="dash-remaining-budget" class="text-2xl font-bold text-emerald-900">21,511,470.00 ฿</div>
+          <div class="text-xs text-emerald-600/70 mt-1" id="dash-remaining-percent">100.00% คงเหลือ</div>
         </div>
       </div>
 
-      <!-- Work Group Progress Breakdown -->
-      <div class="space-y-4">
-        <!-- Group 1: General Admin Work -->
-        <div>
-          <div class="flex justify-between text-xs font-medium mb-1">
-            <span class="text-slate-700">1. งานบริหารทั่วไปเกี่ยวกับอุตสาหกรรมและการโยธา</span>
-            <span class="text-slate-500" id="group1-text">0 / 1,977,580.00 ฿</span>
+      <!-- Detailed Work Group Breakdown Panels -->
+      <div class="space-y-4 pt-2">
+        <!-- Work Group 1 -->
+        <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+          <div class="flex justify-between items-center cursor-pointer" onclick="toggleBreakdown('wg1-details')">
+            <div class="font-bold text-slate-800 text-sm flex items-center">
+              <i class="fa-solid fa-chevron-right text-xs mr-2 transition-transform duration-200" id="wg1-icon"></i>
+              1. งานบริหารทั่วไปเกี่ยวกับอุตสาหกรรมและการโยธา (รวม 1,977,580.00 ฿)
+            </div>
+            <div class="text-xs font-medium text-slate-600" id="wg1-summary-text">เบิกจ่าย: 0.00 ฿ (เหลือ 100%)</div>
           </div>
-          <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
-            <div id="group1-bar" class="bg-blue-600 h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+          <div class="w-full bg-slate-200 rounded-full h-2 mt-2 overflow-hidden">
+            <div id="wg1-bar" class="bg-blue-600 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+          </div>
+
+          <!-- Breakdown Details Dropdown -->
+          <div id="wg1-details" class="hidden mt-4 pt-3 border-t border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div class="space-y-1">
+              <div class="font-bold text-slate-700">• งบบุคลากร (875,580 ฿):</div>
+              <div class="pl-3 text-slate-600">- เงินเดือนข้าราชการ/พนักงานส่วนท้องถิ่น: 833,580 ฿</div>
+              <div class="pl-3 text-slate-600">- เงินประจำตำแหน่ง: 42,000 ฿</div>
+            </div>
+            <div class="space-y-1">
+              <div class="font-bold text-slate-700">• งบดำเนินงาน (1,102,000 ฿):</div>
+              <div class="pl-3 text-slate-600">- ค่าตอบแทน (OT, ค่าเช่าบ้าน): 102,000 ฿</div>
+              <div class="pl-3 text-slate-600">- ค่าใช้สอย (จ้างทำแผนที่ภาษี, ออกแบบ, ฝึกอบรม): 570,000 ฿</div>
+              <div class="pl-3 text-slate-600">- ค่าวัสดุ (สำนักงาน, เชื้อเพลิง 300K, ไฟฟ้า, คอม): 430,000 ฿</div>
+            </div>
           </div>
         </div>
 
-        <!-- Group 2: Construction Work -->
-        <div>
-          <div class="flex justify-between text-xs font-medium mb-1">
-            <span class="text-slate-700">2. งานก่อสร้าง</span>
-            <span class="text-slate-500" id="group2-text">0 / 19,533,890.00 ฿</span>
+        <!-- Work Group 2 -->
+        <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+          <div class="flex justify-between items-center cursor-pointer" onclick="toggleBreakdown('wg2-details')">
+            <div class="font-bold text-slate-800 text-sm flex items-center">
+              <i class="fa-solid fa-chevron-right text-xs mr-2 transition-transform duration-200" id="wg2-icon"></i>
+              2. งานก่อสร้าง (รวม 19,533,890.00 ฿)
+            </div>
+            <div class="text-xs font-medium text-slate-600" id="wg2-summary-text">เบิกจ่าย: 0.00 ฿ (เหลือ 100%)</div>
           </div>
-          <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
-            <div id="group2-bar" class="bg-emerald-500 h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+          <div class="w-full bg-slate-200 rounded-full h-2 mt-2 overflow-hidden">
+            <div id="wg2-bar" class="bg-emerald-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+          </div>
+
+          <!-- Breakdown Details Dropdown -->
+          <div id="wg2-details" class="hidden mt-4 pt-3 border-t border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div class="space-y-1">
+              <div class="font-bold text-slate-700">• งบบุคลากร (3,912,490 ฿):</div>
+              <div class="pl-3 text-slate-600">- เงินเดือน/ค่าครองชีพ/ประจำตำแหน่ง: 1,662,130 ฿</div>
+              <div class="pl-3 text-slate-600">- ค่าจ้างลูกจ้างประจำ & พนักงานจ้าง (11 อัตรา): 2,250,360 ฿</div>
+            </div>
+            <div class="space-y-1">
+              <div class="font-bold text-slate-700">• งบดำเนินงาน & งบลงทุน (15,621,400 ฿):</div>
+              <div class="pl-3 text-slate-600">- ค่าตอบแทน (ค่าเช่าบ้าน, ช่วยเหลือการศึกษาบุตร): 90,000 ฿</div>
+              <div class="pl-3 text-slate-600">- ค่าใช้สอย (จ้างเหมาช่วยงานเครื่องจักรกล): 100,000 ฿</div>
+              <div class="pl-3 text-slate-600">- ค่าวัสดุก่อสร้าง (ปูน, ทราย, เหล็ก, ซ่อมบ้าน): 400,000 ฿</div>
+              <div class="pl-3 text-slate-600">- โครงการก่อสร้างพื้นฐาน & ครุภัณฑ์: 15,031,400 ฿</div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ============================================================================ -->
-    <!-- 3. SEARCH & FILTER TOOLBAR -->
+    <!-- 3. COMPREHENSIVE SEARCH & FILTER TOOLBAR -->
     <!-- ============================================================================ -->
-    <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-      <div class="flex flex-col sm:flex-row items-center gap-3 flex-grow">
-        <!-- Search Input -->
-        <div class="relative w-full sm:w-72">
+    <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 flex flex-col lg:flex-row items-center justify-between gap-3">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 w-full lg:w-auto flex-grow">
+        <!-- Search Keyword -->
+        <div class="relative">
           <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-          <input type="text" id="search-input" onkeyup="filterProjects()" placeholder="ค้นหาชื่อรายการ / เลขที่สัญญา..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent transition">
+          <input type="text" id="search-input" onkeyup="filterProjects()" placeholder="ค้นหาชื่อรายการ / เลขที่สัญญา..." class="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brand-accent">
         </div>
 
         <!-- Filter Work Group -->
-        <select id="filter-workgroup" onchange="filterProjects()" class="w-full sm:w-auto px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent transition">
+        <select id="filter-workgroup" onchange="filterProjects()" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brand-accent">
           <option value="">-- งานหลักทั้งหมด --</option>
           <option value="งานบริหารทั่วไปเกี่ยวกับอุตสาหกรรมและการโยธา">งานบริหารทั่วไปเกี่ยวกับอุตสาหกรรมและการโยธา</option>
           <option value="งานก่อสร้าง">งานก่อสร้าง</option>
         </select>
 
         <!-- Filter Procurement Type -->
-        <select id="filter-type" onchange="filterProjects()" class="w-full sm:w-auto px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent transition">
-          <option value="">-- ประเภทจัดซื้อทั้งหมด --</option>
-          <option value="จัดซื้อวัสดุ/อุปกรณ์">จัดซื้อวัสดุ/อุปกรณ์</option>
-          <option value="จัดจ้างบริการ/เช่าเหมา">จัดจ้างบริการ/เช่าเหมา</option>
+        <select id="filter-type" onchange="filterProjects()" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brand-accent">
+          <option value="">-- ประเภทจัดซื้อ/กิจกรรมทั้งหมด --</option>
+          <option value="จัดซื้อวัสดุ/อุปกรณ์">จัดซื้อวัสดุ/อุปกรณ์ (สำนักงาน, เชื้อเพลิง, ไฟฟ้า)</option>
+          <option value="จัดจ้างบริการ/เช่าเหมา">จัดจ้างบริการ/เช่าเหมา (แผนที่ภาษี, ออกแบบ, ช่วยเครื่องจักร)</option>
           <option value="งานโครงการก่อสร้าง/ปรับปรุง">งานโครงการก่อสร้าง/ปรับปรุง</option>
-          <option value="สวัสดิการและบริหารบุคลากร">สวัสดิการและบริหารบุคลากร</option>
+          <option value="สวัสดิการและบริหารบุคลากร">สวัสดิการและบริหารบุคลากร (OT, ค่าเช่าบ้าน, อบรม)</option>
+        </select>
+
+        <!-- Filter Status -->
+        <select id="filter-status" onchange="filterProjects()" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-brand-accent">
+          <option value="">-- ขั้นตอนดำเนินงานทั้งหมด --</option>
+          <option value="ขั้นตอนที่ 1">ขั้นตอนที่ 1 เสนอโครงการ/ขออนุมัติ</option>
+          <option value="ขั้นตอนที่ 2">ขั้นตอนที่ 2 จัดทำรายงานขอซื้อขอจ้าง</option>
+          <option value="ขั้นตอนที่ 3">ขั้นตอนที่ 3 ดำเนินการจัดซื้อ/สืบราคา</option>
+          <option value="ขั้นตอนที่ 4">ขั้นตอนที่ 4 ประกาศผล/ทำสัญญา</option>
+          <option value="ขั้นตอนที่ 5">ขั้นตอนที่ 5 ส่งมอบพัสดุ/งาน</option>
+          <option value="ขั้นตอนที่ 6">ขั้นตอนที่ 6 ตรวจรับพัสดุ</option>
+          <option value="ขั้นตอนที่ 7">ขั้นตอนที่ 7 จัดทำเอกสารขอเบิกจ่าย</option>
+          <option value="ขั้นตอนที่ 8">ขั้นตอนที่ 8 ตรวจรับงานเรียบร้อย (มี PDF)</option>
         </select>
       </div>
 
-      <!-- Admin Add Button -->
-      <div class="flex items-center space-x-2">
-        <button id="add-btn" onclick="openProjectModal()" class="hidden w-full sm:w-auto bg-brand-navy hover:bg-blue-900 text-white text-sm font-medium px-4 py-2 rounded-xl transition duration-200 flex items-center justify-center space-x-2 shadow">
-          <i class="fa-solid fa-plus"></i>
-          <span>บันทึกจัดซื้อใหม่</span>
-        </button>
-      </div>
+      <!-- Add Button for Admin -->
+      <button id="add-btn" onclick="openProjectModal()" class="hidden w-full lg:w-auto bg-brand-navy hover:bg-blue-900 text-white text-xs font-medium px-4 py-2.5 rounded-xl transition duration-200 flex items-center justify-center space-x-2 shadow shrink-0">
+        <i class="fa-solid fa-plus"></i>
+        <span>บันทึกจัดซื้อใหม่</span>
+      </button>
     </section>
 
     <!-- ============================================================================ -->
@@ -203,9 +245,9 @@
       <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
         <h3 class="font-bold text-slate-800 text-sm flex items-center">
           <i class="fa-solid fa-list-check text-brand-accent mr-2"></i>
-          รายการจัดซื้อและสถานะเวิร์กโฟลว์ (<span id="project-count" class="text-brand-accent">0</span> รายการ)
+          ตารางติดตามสถานะและกระบวนการจัดซื้อ (<span id="project-count" class="text-brand-accent">0</span> รายการ)
         </h3>
-        <span class="text-xs text-slate-400">เรียงตามวันที่บันทึกล่าสุด</span>
+        <span class="text-xs text-slate-400">อัปเดตข้อมูล Real-time</span>
       </div>
 
       <div class="overflow-x-auto custom-scrollbar">
@@ -223,7 +265,6 @@
             </tr>
           </thead>
           <tbody id="project-table-body" class="divide-y divide-slate-100">
-            <!-- Loading State -->
             <tr>
               <td colspan="8" class="text-center py-12 text-slate-400">
                 <i class="fa-solid fa-circle-notch fa-spin text-2xl text-brand-accent mb-2 block"></i>
@@ -238,7 +279,7 @@
   </main>
 
   <!-- ============================================================================ -->
-  <!-- 5. MODAL DIALOGS -->
+  <!-- 5. MODAL DIALOGS (AUTH, PROJECT FORM, PDF UPLOAD, EASYPASS) -->
   <!-- ============================================================================ -->
 
   <!-- AUTH MODAL -->
@@ -249,12 +290,10 @@
           <i class="fa-solid fa-user-shield"></i>
         </div>
         <h3 class="font-bold text-lg text-slate-800">ยืนยันตัวตนผู้ดูแลระบบ</h3>
-        <p class="text-xs text-slate-500 mt-1">กรอกรหัสผ่านเพื่อเข้าสู่โหมดแก้ไขและจัดการข้อมูล</p>
+        <p class="text-xs text-slate-500 mt-1">กรอกรหัสผ่านเพื่อเข้าสู่โหมดแก้ไขข้อมูลและตัดโอนเงิน</p>
       </div>
       <div class="space-y-4">
-        <div>
-          <input type="password" id="auth-password" placeholder="กรอกรหัสผ่าน..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent">
-        </div>
+        <input type="password" id="auth-password" placeholder="กรอกรหัสผ่าน..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent">
         <div class="flex space-x-2">
           <button onclick="closeAuthModal()" class="w-1/2 py-2.5 bg-slate-100 text-slate-600 rounded-xl text-sm font-medium hover:bg-slate-200 transition">ยกเลิก</button>
           <button onclick="submitAuth()" class="w-1/2 py-2.5 bg-brand-navy text-white rounded-xl text-sm font-medium hover:bg-blue-900 transition shadow">ยืนยัน</button>
@@ -284,24 +323,24 @@
           </div>
 
           <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">ประเภทการจัดซื้อ / กิจกรรม *</label>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">ประเภทการจัดซื้อ/กิจกรรม *</label>
             <select id="form-type" required class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm">
-              <option value="จัดซื้อวัสดุ/อุปกรณ์">จัดซื้อวัสดุ/อุปกรณ์</option>
-              <option value="จัดจ้างบริการ/เช่าเหมา">จัดจ้างบริการ/เช่าเหมา</option>
+              <option value="จัดซื้อวัสดุ/อุปกรณ์">จัดซื้อวัสดุ/อุปกรณ์ (สำนักงาน, เชื้อเพลิง, ไฟฟ้า)</option>
+              <option value="จัดจ้างบริการ/เช่าเหมา">จัดจ้างบริการ/เช่าเหมา (แผนที่ภาษี, ออกแบบ, ช่วยเครื่องจักร)</option>
               <option value="งานโครงการก่อสร้าง/ปรับปรุง">งานโครงการก่อสร้าง/ปรับปรุง</option>
-              <option value="สวัสดิการและบริหารบุคลากร">สวัสดิการและบริหารบุคลากร</option>
+              <option value="สวัสดิการและบริหารบุคลากร">สวัสดิการและบริหารบุคลากร (OT, ค่าเช่าบ้าน, อบรม)</option>
             </select>
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">ชื่อรายการจัดซื้อ / โครงการ *</label>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">ชื่อรายการจัดซื้อ / กิจกรรม *</label>
           <input type="text" id="form-name" required placeholder="เช่น จัดซื้อโต๊ะทำงานเหล็กพร้อมเก้าอี้ 1 ชุด" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm">
         </div>
 
         <div>
           <label class="block text-xs font-semibold text-slate-600 mb-1">รายละเอียด / สเปกย่อ</label>
-          <textarea id="form-detail" rows="2" placeholder="ระบุรายละเอียดอุปกรณ์ สเปก หรือขอบเขตงาน..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm"></textarea>
+          <textarea id="form-detail" rows="2" placeholder="ระบุสเปก หรือรายละเอียดงานจัดซื้อ..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm"></textarea>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -322,7 +361,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-semibold text-slate-600 mb-1">ผู้รับผิดชอบ / นายช่างควบคุมงาน</label>
-            <input type="text" id="form-officer" placeholder="ชื่อผู้รับผิดชอบโครงการ" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm">
+            <input type="text" id="form-officer" placeholder="ชื่อผู้รับผิดชอบ" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm">
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-600 mb-1">สถานะขั้นตอนดำเนินงาน</label>
@@ -334,13 +373,13 @@
               <option value="ขั้นตอนที่ 5 ส่งมอบงาน/พัสดุ">ขั้นตอนที่ 5 ส่งมอบงาน/พัสดุ</option>
               <option value="ขั้นตอนที่ 6 ตรวจรับพัสดุ/คณะกรรมการ">ขั้นตอนที่ 6 ตรวจรับพัสดุ/คณะกรรมการ</option>
               <option value="ขั้นตอนที่ 7 จัดทำเอกสารขอเบิกจ่าย">ขั้นตอนที่ 7 จัดทำเอกสารขอเบิกจ่าย</option>
-              <option value="ขั้นตอนที่ 8 ตรวจรับงานเรียบร้อย">ขั้นตอนที่ 8 ตรวจรับงานเรียบร้อย (ต้องแนบ PDF)</option>
+              <option value="ขั้นตอนที่ 8 ตรวจรับงานเรียบร้อย">ขั้นตอนที่ 8 ตรวจรับงานเรียบร้อย (บังคับแนบ PDF)</option>
             </select>
           </div>
         </div>
 
         <div class="pt-4 border-t border-slate-100 flex justify-end space-x-2">
-          <button type="button" onclick="closeProjectModal()" class="px-4 py-2 bg-slate-100 text-slate-600 rounded-xl text-sm font-medium hover:bg-slate-200 transition">ยกเลิก</button>
+          <button type="button" onclick="closeProjectModal()" class="px-4 py-2 bg-slate-100 text-slate-600 rounded-xl text-sm hover:bg-slate-200 transition">ยกเลิก</button>
           <button type="submit" id="save-btn" class="px-6 py-2 bg-brand-navy text-white rounded-xl text-sm font-medium hover:bg-blue-900 transition shadow flex items-center space-x-2">
             <i class="fa-solid fa-floppy-disk"></i>
             <span>บันทึกข้อมูล</span>
@@ -350,15 +389,15 @@
     </div>
   </div>
 
-  <!-- STEP 8 PDF UPLOAD MODAL -->
+  <!-- STEP 8 UPLOAD PDF MODAL -->
   <div id="upload-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100">
       <div class="text-center mb-4">
         <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
           <i class="fa-solid fa-file-pdf"></i>
         </div>
-        <h3 class="font-bold text-lg text-slate-800">อัปโหลดเอกสารสรุปโครงการ (ขั้นตอนที่ 8)</h3>
-        <p class="text-xs text-slate-500 mt-1">ระบบจะสร้าง Drive Subfolder ให้อัตโนมัติเพื่อจัดเก็บเอกสาร</p>
+        <h3 class="font-bold text-lg text-slate-800">อัปโหลดเอกสาร PDF (ขั้นตอนที่ 8)</h3>
+        <p class="text-xs text-slate-500 mt-1">ระบบจะสร้าง Drive Subfolder ให้อัตโนมัติใน Google Drive</p>
       </div>
 
       <div class="space-y-4">
@@ -373,7 +412,7 @@
         </div>
 
         <div class="flex space-x-2 pt-2">
-          <button onclick="closeUploadModal()" class="w-1/2 py-2.5 bg-slate-100 text-slate-600 rounded-xl text-sm font-medium hover:bg-slate-200 transition">ยกเลิก</button>
+          <button onclick="closeUploadModal()" class="w-1/2 py-2.5 bg-slate-100 text-slate-600 rounded-xl text-sm hover:bg-slate-200 transition">ยกเลิก</button>
           <button id="upload-btn" onclick="submitPdfUpload()" disabled class="w-1/2 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 transition shadow disabled:opacity-50">อัปโหลดและปิดงาน</button>
         </div>
       </div>
@@ -404,12 +443,10 @@
           <span class="font-bold text-amber-900">จำนวนเงินตัดโอน:</span>
           <span id="ep-modal-amount" class="text-xl font-bold text-amber-900">0.00 ฿</span>
         </div>
-
-        <p class="text-xs text-slate-400">โปรดตรวจสอบรายละเอียดข้อมูลก่อนกดยืนยันส่งข้อมูลตัดยอดเงินไปยังระบบเครื่องจักรกล</p>
       </div>
 
       <div class="flex space-x-2 pt-6">
-        <button onclick="closeEasyPassModal()" class="w-1/2 py-2.5 bg-slate-100 text-slate-600 rounded-xl text-sm font-medium hover:bg-slate-200 transition">ยกเลิก</button>
+        <button onclick="closeEasyPassModal()" class="w-1/2 py-2.5 bg-slate-100 text-slate-600 rounded-xl text-sm hover:bg-slate-200 transition">ยกเลิก</button>
         <button id="ep-submit-btn" onclick="submitEasyPassDeduction()" class="w-1/2 py-2.5 bg-amber-500 text-white rounded-xl text-sm font-medium hover:bg-amber-600 transition shadow flex items-center justify-center space-x-2">
           <i class="fa-solid fa-paper-plane"></i>
           <span>ยืนยันส่งตัดเงิน</span>
@@ -418,14 +455,10 @@
     </div>
   </div>
 
-  <!-- ============================================================================ -->
-  <!-- 6. JAVASCRIPT APPLICATION ENGINE -->
-  <!-- ============================================================================ -->
+  <!-- JAVASCRIPT LOGIC -->
   <script>
-    // Web App API Endpoint URL
     const API_URL = 'https://script.google.com/macros/s/AKfycbz2jxrrA5NB1dQmRyPJ3L19oQ1WOVDMTesGsujYo5oseuVHuPAQ7GjoM7pPNCwZJqYF/exec';
 
-    // Application State
     let state = {
       isAdmin: false,
       projects: [],
@@ -434,12 +467,10 @@
       selectedFileName: null
     };
 
-    // Initialize System
     document.addEventListener('DOMContentLoaded', () => {
       fetchInitialData();
     });
 
-    // Fetch Data from GAS Web App
     async function fetchInitialData() {
       try {
         const response = await fetch(`${API_URL}?action=getInitialData`);
@@ -455,20 +486,18 @@
         }
       } catch (err) {
         console.error('API Error:', err);
-        alert('ไม่สามารถเชื่อมต่อระบบหลังบ้านได้ โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ต');
       }
     }
 
-    // Render Dashboard KPIs
     function renderDashboard() {
-      let totalAllocated = 21511470.00; // Total Framework (1.97M + 19.53M)
+      const totalAllocated = 21511470.00;
       let totalDisbursed = 0;
 
       let group1Disbursed = 0;
-      let group1Limit = 1977580.00;
+      const group1Limit = 1977580.00;
 
       let group2Disbursed = 0;
-      let group2Limit = 19533890.00;
+      const group2Limit = 19533890.00;
 
       state.projects.forEach(p => {
         const amount = p.disbursedAmount || p.approvedAmount || p.budgetAmount || 0;
@@ -492,26 +521,33 @@
       document.getElementById('dash-remaining-budget').textContent = formatMoney(remainingBudget) + ' ฿';
       document.getElementById('dash-remaining-percent').textContent = `${remainingPercent.toFixed(2)}% คงเหลือ`;
 
-      // Progress Bars
       const g1Pct = Math.min(100, (group1Disbursed / group1Limit) * 100);
-      document.getElementById('group1-text').textContent = `${formatMoney(group1Disbursed)} / ${formatMoney(group1Limit)} ฿ (${g1Pct.toFixed(1)}%)`;
-      document.getElementById('group1-bar').style.width = `${g1Pct}%`;
+      document.getElementById('wg1-summary-text').textContent = `เบิกจ่าย: ${formatMoney(group1Disbursed)} / ${formatMoney(group1Limit)} ฿ (${g1Pct.toFixed(1)}%)`;
+      document.getElementById('wg1-bar').style.width = `${g1Pct}%`;
 
       const g2Pct = Math.min(100, (group2Disbursed / group2Limit) * 100);
-      document.getElementById('group2-text').textContent = `${formatMoney(group2Disbursed)} / ${formatMoney(group2Limit)} ฿ (${g2Pct.toFixed(1)}%)`;
-      document.getElementById('group2-bar').style.width = `${g2Pct}%`;
+      document.getElementById('wg2-summary-text').textContent = `เบิกจ่าย: ${formatMoney(group2Disbursed)} / ${formatMoney(group2Limit)} ฿ (${g2Pct.toFixed(1)}%)`;
+      document.getElementById('wg2-bar').style.width = `${g2Pct}%`;
     }
 
-    // Render Projects Table
+    function toggleBreakdown(id) {
+      const el = document.getElementById(id);
+      const icon = document.getElementById(id === 'wg1-details' ? 'wg1-icon' : 'wg2-icon');
+      if (el.classList.contains('hidden')) {
+        el.classList.remove('hidden');
+        icon.classList.add('rotate-90');
+      } else {
+        el.classList.add('hidden');
+        icon.classList.remove('rotate-90');
+      }
+    }
+
     function renderProjectsTable(projects) {
       const tbody = document.getElementById('project-table-body');
       document.getElementById('project-count').textContent = projects.length;
 
       if (projects.length === 0) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="8" class="text-center py-8 text-slate-400">ไม่พบรายการจัดซื้อ/กิจกรรมในระบบ</td>
-          </tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" class="text-center py-8 text-slate-400">ไม่พบรายการจัดซื้อ/กิจกรรมในระบบ</td></tr>`;
         return;
       }
 
@@ -552,15 +588,15 @@
             </td>
             <td class="px-4 py-3 text-center space-x-1">
               ${p.driveFolderUrl 
-                ? `<a href="${p.driveFolderUrl}" target="_blank" title="ดูเอกสาร PDF สรุปโครงการ" class="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition inline-block"><i class="fa-solid fa-file-pdf"></i></a>` 
+                ? `<a href="${p.driveFolderUrl}" target="_blank" title="ดูเอกสาร PDF" class="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition inline-block"><i class="fa-solid fa-file-pdf"></i></a>` 
                 : (state.isAdmin && isCompleted 
                   ? `<button onclick="openUploadModal('${p.id}')" title="อัปโหลด PDF ขั้นตอนที่ 8" class="p-1.5 text-amber-600 hover:bg-amber-50 rounded-lg transition"><i class="fa-solid fa-upload"></i></button>` 
                   : ''
                 )
               }
               ${state.isAdmin ? `
-                <button onclick="editProject('${p.id}')" title="แก้ไขรายการ" class="p-1.5 text-slate-600 hover:bg-slate-100 rounded-lg transition"><i class="fa-solid fa-pen-to-square"></i></button>
-                <button onclick="deleteProject('${p.id}')" title="ลบรายการ" class="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg transition"><i class="fa-solid fa-trash-can"></i></button>
+                <button onclick="editProject('${p.id}')" title="แก้ไข" class="p-1.5 text-slate-600 hover:bg-slate-100 rounded-lg transition"><i class="fa-solid fa-pen-to-square"></i></button>
+                <button onclick="deleteProject('${p.id}')" title="ลบ" class="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg transition"><i class="fa-solid fa-trash-can"></i></button>
               ` : ''}
             </td>
           </tr>
@@ -568,29 +604,26 @@
       }).join('');
     }
 
-    // Filter Projects
     function filterProjects() {
       const search = document.getElementById('search-input').value.toLowerCase();
       const workgroup = document.getElementById('filter-workgroup').value;
       const type = document.getElementById('filter-type').value;
+      const status = document.getElementById('filter-status').value;
 
       const filtered = state.projects.filter(p => {
         const matchSearch = p.projectName.toLowerCase().includes(search) || p.id.toLowerCase().includes(search);
         const matchWg = !workgroup || p.workGroup === workgroup;
         const matchType = !type || p.procurementType === type;
-        return matchSearch && matchWg && matchType;
+        const matchStatus = !status || p.currentStatus.includes(status);
+        return matchSearch && matchWg && matchType && matchStatus;
       });
 
       renderProjectsTable(filtered);
     }
 
-    // Authentication Logic
-    function openAuthModal() {
-      document.getElementById('auth-modal').classList.remove('hidden');
-    }
-    function closeAuthModal() {
-      document.getElementById('auth-modal').classList.add('hidden');
-    }
+    function openAuthModal() { document.getElementById('auth-modal').classList.remove('hidden'); }
+    function closeAuthModal() { document.getElementById('auth-modal').classList.add('hidden'); }
+    
     async function submitAuth() {
       const pass = document.getElementById('auth-password').value;
       try {
@@ -608,7 +641,7 @@
           document.getElementById('auth-btn').onclick = logoutAdmin;
           closeAuthModal();
           renderProjectsTable(state.projects);
-          alert('ยืนยันตัวตนผู้ดูแลระบบสำเร็จ!');
+          alert('เข้าสู่ระบบผู้ดูแลระบบสำเร็จ!');
         } else {
           alert('รหัสผ่านไม่ถูกต้อง');
         }
@@ -616,6 +649,7 @@
         alert('เกิดข้อผิดพลาดในการตรวจสอบรหัสผ่าน');
       }
     }
+
     function logoutAdmin() {
       state.isAdmin = false;
       document.getElementById('admin-badge').classList.add('hidden');
@@ -625,16 +659,13 @@
       renderProjectsTable(state.projects);
     }
 
-    // Project Form Modals & CRUD
     function openProjectModal() {
       document.getElementById('project-form').reset();
       document.getElementById('form-id').value = '';
       document.getElementById('modal-title').textContent = 'บันทึกรายการจัดซื้อใหม่';
       document.getElementById('project-modal').classList.remove('hidden');
     }
-    function closeProjectModal() {
-      document.getElementById('project-modal').classList.add('hidden');
-    }
+    function closeProjectModal() { document.getElementById('project-modal').classList.add('hidden'); }
 
     function editProject(id) {
       const p = state.projects.find(item => item.id === id);
@@ -659,7 +690,6 @@
       e.preventDefault();
       const saveBtn = document.getElementById('save-btn');
       saveBtn.disabled = true;
-      saveBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> กำลังบันทึก...';
 
       const formData = {
         id: document.getElementById('form-id').value,
@@ -689,10 +719,9 @@
           alert('เกิดข้อผิดพลาด: ' + result.error);
         }
       } catch (err) {
-        alert('เกิดข้อผิดพลาดในการเชื่อมต่อเพื่อบันทึกข้อมูล');
+        alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
       } finally {
         saveBtn.disabled = false;
-        saveBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> <span>บันทึกข้อมูล</span>';
       }
     }
 
@@ -709,34 +738,21 @@
         if (result.success) {
           alert('ลบรายการเรียบร้อยแล้ว');
           fetchInitialData();
-        } else {
-          alert('เกิดข้อผิดพลาด: ' + result.error);
         }
       } catch (err) {
         alert('เกิดข้อผิดพลาดในการลบข้อมูล');
       }
     }
 
-    // Step 8 PDF Upload Modal Logic
     function openUploadModal(projectId) {
       document.getElementById('upload-project-id').value = projectId;
-      document.getElementById('pdf-file-input').value = '';
-      document.getElementById('selected-file-name').textContent = 'ยังไม่ได้เลือกไฟล์';
-      document.getElementById('upload-btn').disabled = true;
-      state.selectedFileBase64 = null;
       document.getElementById('upload-modal').classList.remove('hidden');
     }
-    function closeUploadModal() {
-      document.getElementById('upload-modal').classList.add('hidden');
-    }
+    function closeUploadModal() { document.getElementById('upload-modal').classList.add('hidden'); }
+
     function handleFileSelect(event) {
       const file = event.target.files[0];
       if (!file) return;
-
-      if (file.type !== 'application/pdf') {
-        alert('กรุณาเลือกไฟล์ PDF เท่านั้น');
-        return;
-      }
 
       state.selectedFileName = file.name;
       document.getElementById('selected-file-name').textContent = file.name;
@@ -748,11 +764,11 @@
       };
       reader.readAsDataURL(file);
     }
+
     async function submitPdfUpload() {
       const projectId = document.getElementById('upload-project-id').value;
       const uploadBtn = document.getElementById('upload-btn');
       uploadBtn.disabled = true;
-      uploadBtn.textContent = 'กำลังอัปโหลด...';
 
       try {
         const response = await fetch(API_URL, {
@@ -768,21 +784,17 @@
         const result = await response.json();
 
         if (result.success) {
-          alert('อัปโหลดเอกสาร PDF สรุปโครงการเสร็จสิ้น!');
+          alert('อัปโหลดเอกสาร PDF เรียบร้อยแล้ว');
           closeUploadModal();
           fetchInitialData();
-        } else {
-          alert('เกิดข้อผิดพลาด: ' + result.error);
         }
       } catch (err) {
         alert('เกิดข้อผิดพลาดในการอัปโหลดไฟล์');
       } finally {
         uploadBtn.disabled = false;
-        uploadBtn.textContent = 'อัปโหลดและปิดงาน';
       }
     }
 
-    // Easy Pass Transfer Modal Logic
     function openEasyPassModal(projectId) {
       const p = state.projects.find(item => item.id === projectId);
       if (!p) return;
@@ -798,14 +810,12 @@
 
       document.getElementById('easypass-modal').classList.remove('hidden');
     }
-    function closeEasyPassModal() {
-      document.getElementById('easypass-modal').classList.add('hidden');
-    }
+    function closeEasyPassModal() { document.getElementById('easypass-modal').classList.add('hidden'); }
+
     async function submitEasyPassDeduction() {
       const projectId = document.getElementById('ep-project-id').value;
       const submitBtn = document.getElementById('ep-submit-btn');
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> กำลังส่งตัดเงิน...';
 
       try {
         const response = await fetch(API_URL, {
@@ -822,18 +832,14 @@
           alert(`ส่งตัดเงิน Easy Pass สำเร็จ!\nรหัสอ้างอิง: ${result.txId}`);
           closeEasyPassModal();
           fetchInitialData();
-        } else {
-          alert('เกิดข้อผิดพลาด: ' + result.error);
         }
       } catch (err) {
         alert('เกิดข้อผิดพลาดในการส่งตัดเงิน');
       } finally {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> <span>ยืนยันส่งตัดเงิน</span>';
       }
     }
 
-    // Helper Utilities
     function formatMoney(num) {
       return Number(num || 0).toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
