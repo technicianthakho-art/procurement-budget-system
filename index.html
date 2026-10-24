@@ -7,7 +7,7 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -36,6 +36,7 @@
     .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
     .custom-scrollbar::-webkit-scrollbar-track { background: #F1F5F9; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
   </style>
 </head>
 <body class="bg-slate-50 min-h-screen flex flex-col antialiased">
@@ -58,7 +59,8 @@
           <i class="fa-solid fa-calendar-days text-xs text-amber-400"></i>
           <span class="text-xs font-medium text-slate-300">ปีงบ:</span>
           <select id="fiscal-year-select" onchange="changeFiscalYear()" class="bg-transparent text-white text-xs font-bold focus:outline-none cursor-pointer">
-            <option value="2570" class="text-slate-800">2570</option>
+            <option value="2569" class="text-slate-800">2569</option>
+            <option value="2570" selected class="text-slate-800">2570</option>
             <option value="2571" class="text-slate-800">2571</option>
             <option value="2572" class="text-slate-800">2572</option>
           </select>
@@ -100,32 +102,32 @@
       <section class="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm">
           <div class="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">กรอบงบตั้งไว้รวม</div>
-          <div id="dash-total-budget" class="text-2xl font-bold text-brand-navy">21,511,470.00 ฿</div>
+          <div id="dash-total-budget" class="text-2xl font-bold text-brand-navy">0.00 ฿</div>
           <div class="text-xs text-slate-400 mt-1">ข้อบัญญัติงบประมาณรายจ่ายประจำปี <span class="current-fy-text">2570</span></div>
         </div>
 
         <div class="bg-blue-50/60 rounded-xl p-4 border border-blue-100 shadow-sm">
-          <div class="text-xs font-medium text-blue-600 uppercase tracking-wider mb-1">ผูกพัน / ตัดโอนแล้ว</div>
+          <div class="text-xs font-medium text-blue-600 uppercase tracking-wider mb-1">ผูกพัน / เบิกจ่ายแล้ว</div>
           <div id="dash-disbursed-budget" class="text-2xl font-bold text-blue-900">0.00 ฿</div>
           <div class="text-xs text-blue-600/70 mt-1" id="dash-disbursed-percent">0.00% ของกรอบงบรวม</div>
         </div>
 
         <div class="bg-emerald-50/60 rounded-xl p-4 border border-emerald-100 shadow-sm">
           <div class="text-xs font-medium text-emerald-600 uppercase tracking-wider mb-1">กรอบงบคงเหลือจัดสรรได้</div>
-          <div id="dash-remaining-budget" class="text-2xl font-bold text-emerald-900">21,511,470.00 ฿</div>
+          <div id="dash-remaining-budget" class="text-2xl font-bold text-emerald-900">0.00 ฿</div>
           <div class="text-xs text-emerald-600/70 mt-1" id="dash-remaining-percent">100.00% คงเหลือ</div>
         </div>
       </section>
 
-      <!-- Work Group 1 Grid (5 Columns Expansion) -->
+      <!-- Work Group 1 Grid -->
       <section class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm space-y-3">
         <div class="flex justify-between items-center pb-2 border-b border-slate-100">
           <div>
             <h2 class="font-bold text-sm sm:text-base text-slate-800 flex items-center">
               <i class="fa-solid fa-folder-tree text-blue-600 mr-2"></i>
-              1. งานบริหารทั่วไปเกี่ยวกับอุตสาหกรรมและการโยธา (รวม 1,977,580.00 ฿)
+              1. งานบริหารทั่วไปเกี่ยวกับอุตสาหกรรมและการโยธา
             </h2>
-            <p class="text-[11px] text-slate-400">คลิกที่การ์ดเพื่อสลับไปดูโครงการจัดซื้อภายใต้งบย่อยนั้นๆ</p>
+            <p class="text-[11px] text-slate-400">คลิกที่การ์ดเพื่อดูโครงการจัดซื้อภายใต้งบย่อยนั้นๆ</p>
           </div>
           <span class="text-xs bg-blue-50 text-blue-700 px-3 py-1 rounded-full font-medium" id="wg1-summary-badge">เบิกจ่าย: 0.00 ฿</span>
         </div>
@@ -133,15 +135,15 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3" id="wg1-cards-container"></div>
       </section>
 
-      <!-- Work Group 2 Grid (5 Columns Expansion) -->
+      <!-- Work Group 2 Grid -->
       <section class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm space-y-3">
         <div class="flex justify-between items-center pb-2 border-b border-slate-100">
           <div>
             <h2 class="font-bold text-sm sm:text-base text-slate-800 flex items-center">
               <i class="fa-solid fa-helmet-safety text-emerald-600 mr-2"></i>
-              2. งานก่อสร้าง (รวม 19,533,890.00 ฿)
+              2. งานก่อสร้าง
             </h2>
-            <p class="text-[11px] text-slate-400">คลิกที่การ์ดเพื่อสลับไปดูโครงการจัดซื้อภายใต้งบย่อยนั้นๆ</p>
+            <p class="text-[11px] text-slate-400">คลิกที่การ์ดเพื่อดูโครงการจัดซื้อภายใต้งบย่อยนั้นๆ</p>
           </div>
           <span class="text-xs bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full font-medium" id="wg2-summary-badge">เบิกจ่าย: 0.00 ฿</span>
         </div>
@@ -154,33 +156,37 @@
     <!-- TAB 2: PIPELINE TABLE & SEARCH TOOLBAR -->
     <div id="tab-content-pipeline" class="hidden space-y-4">
       
+      <!-- Filter Toolbar -->
       <section class="bg-white rounded-xl p-3 border border-slate-200 shadow-sm flex flex-col lg:flex-row items-center justify-between gap-3">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 w-full lg:w-auto flex-grow">
           <div class="relative">
             <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-            <input type="text" id="search-input" onkeyup="filterProjects()" placeholder="ค้นหาชื่อรายการ/หมวดงบ..." class="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-brand-accent">
+            <input type="text" id="search-input" onkeyup="filterProjects()" placeholder="ค้นหาชื่อรายการ/หมวดงบ/ผู้รับจ้าง..." class="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-brand-accent">
           </div>
 
-          <select id="filter-workgroup" onchange="filterProjects()" class="px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-brand-accent">
+          <!-- งานหลัก -->
+          <select id="filter-workgroup" onchange="handleFilterWorkgroupChange()" class="px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-brand-accent">
             <option value="">-- งานหลักทั้งหมด --</option>
             <option value="งานบริหารทั่วไปเกี่ยวกับอุตสาหกรรมและการโยธา">งานบริหารทั่วไปเกี่ยวกับอุตสาหกรรมและการโยธา</option>
             <option value="งานก่อสร้าง">งานก่อสร้าง</option>
           </select>
 
+          <!-- ประเภท/หมวดงบประมาณย่อย (Dependent Dropdown) -->
           <select id="filter-type" onchange="filterProjects()" class="px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-brand-accent">
             <option value="">-- ประเภท/หมวดงบทั้งหมด --</option>
           </select>
 
+          <!-- ขั้นตอนเวิร์กโฟลว์ 1-8 -->
           <select id="filter-status" onchange="filterProjects()" class="px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-brand-accent">
             <option value="">-- ขั้นตอนทั้งหมด (1-8) --</option>
-            <option value="ขั้นตอนที่ 1">ขั้นตอนที่ 1 เสนอโครงการ</option>
-            <option value="ขั้นตอนที่ 2">ขั้นตอนที่ 2 รายงานขอซื้อขอจ้าง</option>
-            <option value="ขั้นตอนที่ 3">ขั้นตอนที่ 3 สืบราคา/จัดซื้อ</option>
+            <option value="ขั้นตอนที่ 1">ขั้นตอนที่ 1 เสนอโครงการ/ขออนุมัติจัดซื้อ</option>
+            <option value="ขั้นตอนที่ 2">ขั้นตอนที่ 2 จัดทำรายงานขอซื้อขอจ้าง</option>
+            <option value="ขั้นตอนที่ 3">ขั้นตอนที่ 3 ดำเนินการจัดซื้อจัดจ้าง/สืบราคา</option>
             <option value="ขั้นตอนที่ 4">ขั้นตอนที่ 4 ประกาศผล/จัดทำสัญญา</option>
-            <option value="ขั้นตอนที่ 5">ขั้นตอนที่ 5 ส่งมอบพัสดุ</option>
-            <option value="ขั้นตอนที่ 6">ขั้นตอนที่ 6 ตรวจรับพัสดุ</option>
-            <option value="ขั้นตอนที่ 7">ขั้นตอนที่ 7 เอกสารขอเบิกจ่าย</option>
-            <option value="ขั้นตอนที่ 8">ขั้นตอนที่ 8 ตรวจรับเรียบร้อย (PDF)</option>
+            <option value="ขั้นตอนที่ 5">ขั้นตอนที่ 5 ส่งมอบงาน/พัสดุ</option>
+            <option value="ขั้นตอนที่ 6">ขั้นตอนที่ 6 ตรวจรับพัสดุ/คณะกรรมการ</option>
+            <option value="ขั้นตอนที่ 7">ขั้นตอนที่ 7 จัดทำเอกสารขอเบิกจ่าย</option>
+            <option value="ขั้นตอนที่ 8">ขั้นตอนที่ 8 ตรวจรับงานเรียบร้อย (PDF)</option>
           </select>
         </div>
 
@@ -203,7 +209,7 @@
             <i class="fa-solid fa-list-check text-brand-accent mr-2"></i>
             รายการจัดซื้อและสถานะ (<span id="project-count" class="text-brand-accent">0</span> รายการ)
           </h3>
-          <span class="text-xs text-slate-400">เลื่อนลงล่างเพื่อดูข้อมูลเพิ่มเติม</span>
+          <span class="text-xs text-slate-400">เลื่อนลงเพื่อดูข้อมูลเพิ่มเติม</span>
         </div>
 
         <div class="overflow-x-auto custom-scrollbar max-h-[650px]">
@@ -211,8 +217,8 @@
             <thead class="bg-slate-50 text-xs uppercase text-slate-500 font-semibold sticky top-0 border-b border-slate-100">
               <tr>
                 <th class="px-3 py-2.5 text-center w-12">ลำดับ</th>
-                <th class="px-4 py-2.5">รายการจัดซื้อ / กิจกรรม</th>
-                <th class="px-4 py-2.5">งานหลัก / หมวดงบย่อย</th>
+                <th class="px-4 py-2.5">รหัส / รายการจัดซื้อ</th>
+                <th class="px-4 py-2.5">งานหลัก / หมวดงบประมาณ</th>
                 <th class="px-4 py-2.5 text-right">งบตั้งไว้ (บาท)</th>
                 <th class="px-4 py-2.5 text-right">เบิกจ่าย (บาท)</th>
                 <th class="px-4 py-2.5 text-center">สถานะเวิร์กโฟลว์</th>
@@ -249,7 +255,7 @@
         <p class="text-xs text-slate-500 mt-1">กรอกรหัสผ่านเพื่อแก้ไขข้อมูล เพิ่มงบ และตัดเงิน Easy Pass</p>
       </div>
       <div class="space-y-4">
-        <input type="password" id="auth-password" placeholder="กรอกรหัสผ่าน (12345)..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent">
+        <input type="password" id="auth-password" placeholder="กรอกรหัสผ่าน..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent" onkeyup="if(event.key==='Enter') submitAuth()">
         <div class="flex space-x-2">
           <button onclick="closeAuthModal()" class="w-1/2 py-2.5 bg-slate-100 text-slate-600 rounded-xl text-sm hover:bg-slate-200 transition">ยกเลิก</button>
           <button onclick="submitAuth()" class="w-1/2 py-2.5 bg-brand-navy text-white rounded-xl text-sm font-medium hover:bg-blue-900 transition shadow">ยืนยัน</button>
@@ -303,7 +309,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-semibold text-slate-600 mb-1">งานหลัก *</label>
-            <select id="form-workgroup" required onchange="populateTypeDropdown(this.value)" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+            <select id="form-workgroup" required onchange="populateFormTypeDropdown(this.value)" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
               <option value="งานบริหารทั่วไปเกี่ยวกับอุตสาหกรรมและการโยธา">งานบริหารทั่วไปเกี่ยวกับอุตสาหกรรมและการโยธา</option>
               <option value="งานก่อสร้าง">งานก่อสร้าง</option>
             </select>
@@ -342,6 +348,31 @@
           </div>
         </div>
 
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">สถานที่ / หมู่ที่ (1-28)</label>
+            <select id="form-village-select" onchange="autoFillVillageName()" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+              <option value="">-- ไม่ระบุ / งบส่วนกลาง --</option>
+            </select>
+            <input type="hidden" id="form-village-name">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">ผู้รับผิดชอบโครงการ</label>
+            <input type="text" id="form-officer" placeholder="ชื่อนายช่าง / ผู้ควบคุมงาน" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">เลขที่สัญญา</label>
+            <input type="text" id="form-contract-no" placeholder="เช่น CN-69/2570" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">ชื่อผู้รับจ้าง / ร้านค้า</label>
+            <input type="text" id="form-vendor" placeholder="ระบุชื่อผู้รับจ้าง/ร้านค้า" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+          </div>
+        </div>
+
         <div id="edit-status-container" class="hidden">
           <label class="block text-xs font-semibold text-slate-600 mb-1">สถานะขั้นตอนดำเนินงาน</label>
           <select id="form-status" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
@@ -375,7 +406,7 @@
           <i class="fa-solid fa-file-pdf"></i>
         </div>
         <h3 class="font-bold text-lg text-slate-800">อัปโหลดเอกสาร PDF (ขั้นตอนที่ 8)</h3>
-        <p class="text-xs text-slate-500 mt-1">ระบบจะสร้าง Drive Subfolder ให้อัตโนมัติใน Google Drive</p>
+        <p class="text-xs text-slate-500 mt-1">ระบบจะบันทึกเข้าโฟลเดอร์ Google Drive ให้อัตโนมัติ</p>
       </div>
 
       <div class="space-y-4">
@@ -397,31 +428,40 @@
     </div>
   </div>
 
-  <!-- EASY PASS MODAL -->
+  <!-- EASY PASS DEDUCTION MODAL -->
   <div id="easypass-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-100">
       <div class="flex justify-between items-center pb-4 border-b border-slate-100 mb-4">
         <h3 class="font-bold text-lg text-brand-navy flex items-center">
           <i class="fa-solid fa-bolt text-amber-500 mr-2"></i>
-          ส่งตัดยอดเงิน Easy Pass (ระบบเครื่องจักรกล)
+          ส่งตัดงบประมาณ Easy Pass (สู่ระบบพัฒนาหมู่บ้าน)
         </h3>
         <button onclick="closeEasyPassModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
       <div class="space-y-3 text-sm text-slate-600">
         <input type="hidden" id="ep-project-id">
-        <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-1">
+        
+        <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-1 text-xs">
+          <div><span class="font-semibold text-slate-700">รหัสโครงการ:</span> <span id="ep-modal-id" class="font-bold text-brand-navy">-</span></div>
           <div><span class="font-semibold text-slate-700">รายการ:</span> <span id="ep-modal-name">-</span></div>
-          <div><span class="font-semibold text-slate-700">งานหลัก:</span> <span id="ep-modal-workgroup">-</span></div>
+          <div><span class="font-semibold text-slate-700">หมวดงบ:</span> <span id="ep-modal-type">-</span></div>
+        </div>
+
+        <div class="space-y-2">
+          <label class="block text-xs font-bold text-slate-700">ระบุหมู่บ้านที่จะตัดเงินงบประมาณ *</label>
+          <select id="ep-modal-village" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500"></select>
         </div>
 
         <div class="bg-amber-50 p-3 rounded-xl border border-amber-200/60 flex justify-between items-center">
-          <span class="font-bold text-amber-900">จำนวนเงินตัดโอน:</span>
+          <span class="font-bold text-amber-900 text-xs">ยอดเงินส่งตัดโอนสุทธิ:</span>
           <span id="ep-modal-amount" class="text-xl font-bold text-amber-900">0.00 ฿</span>
         </div>
+
+        <p class="text-[11px] text-slate-400 italic text-center">* ระบบจะส่งสัญญาณ Webhook ไปตัดเงินที่แอปบริหารงบประมาณพัฒนาหมู่บ้านทันที</p>
       </div>
 
-      <div class="flex space-x-2 pt-6">
+      <div class="flex space-x-2 pt-4">
         <button onclick="closeEasyPassModal()" class="w-1/2 py-2.5 bg-slate-100 text-slate-600 rounded-xl text-xs hover:bg-slate-200 transition">ยกเลิก</button>
         <button id="ep-submit-btn" onclick="submitEasyPassDeduction()" class="w-1/2 py-2.5 bg-amber-500 text-white rounded-xl text-xs font-medium hover:bg-amber-600 transition shadow flex items-center justify-center space-x-2">
           <i class="fa-solid fa-paper-plane"></i>
@@ -434,17 +474,41 @@
   <script>
     const API_URL = 'https://script.google.com/macros/s/AKfycbz2jxrrA5NB1dQmRyPJ3L19oQ1WOVDMTesGsujYo5oseuVHuPAQ7GjoM7pPNCwZJqYF/exec';
 
-    let state = {
-      isAdmin: false,
-      fiscalYear: '2570',
-      projects: [],
-      budgetFramework: [],
-      selectedFileBase64: null,
-      selectedFileName: null
-    };
+    // รายชื่อ 28 หมู่บ้านของตำบลท่าก๊อ
+    const MASTER_VILLAGES = [
+      { no: 1, name: "บ้านดินดำ" },
+      { no: 2, name: "บ้านป่าถ่อน" },
+      { no: 3, name: "บ้านป่าลัน" },
+      { no: 4, name: "บ้านแม่ต๋ำ" },
+      { no: 5, name: "บ้านสบก๊อ" },
+      { no: 6, name: "บ้านท่าก๊อพลับพลา" },
+      { no: 7, name: "บ้านโฮ่ง" },
+      { no: 8, name: "บ้านปางหลวง" },
+      { no: 9, name: "บ้านปางน้ำฮ้าย" },
+      { no: 10, name: "บ้านดอนชัย" },
+      { no: 11, name: "บ้านแม่ผักแหละ" },
+      { no: 12, name: "บ้านหล่ายลาว" },
+      { no: 13, name: "บ้านสันมะแฟน" },
+      { no: 14, name: "บ้านป่าเหียง" },
+      { no: 15, name: "บ้านดอยงาม" },
+      { no: 16, name: "บ้านห้วยน้ำขุ่น" },
+      { no: 17, name: "บ้านห้วยชมภู" },
+      { no: 18, name: "บ้านป่าเกี๊ยะ" },
+      { no: 19, name: "บ้านบาหรา" },
+      { no: 20, name: "บ้านผาต้าย" },
+      { no: 21, name: "บ้านชัยมงคล" },
+      { no: 22, name: "บ้านร่มโพธิ์ทอง" },
+      { no: 23, name: "บ้านลอจอ" },
+      { no: 24, name: "บ้านแม่ต๋ำน้อย" },
+      { no: 25, name: "บ้านพนาเสรี" },
+      { no: 26, name: "บ้านใหม่สุขสรรค์" },
+      { no: 27, name: "บ้านดอนแก้ว" },
+      { no: 28, name: "บ้านใหม่จะคะ" }
+    ];
 
+    // โครงสร้างหมวดงบประมาณตั้งต้น
     const MASTER_BUDGET_ITEMS = [
-      // WG1
+      // WG1: งานบริหารทั่วไปเกี่ยวกับอุตสาหกรรมและการโยธา (13 หมวด)
       { id: 'B-101', wg: 1, name: 'เงินเดือนข้าราชการ/พนักงานส่วนท้องถิ่น', budget: 833580 },
       { id: 'B-102', wg: 1, name: 'เงินประจำตำแหน่ง', budget: 42000 },
       { id: 'B-103', wg: 1, name: 'ค่าตอบแทนการปฏิบัติงานนอกเวลาราชการ (OT)', budget: 30000 },
@@ -459,7 +523,7 @@
       { id: 'B-112', wg: 1, name: 'วัสดุเชื้อเพลิงและหล่อลื่น (เครื่องจักร/รถบรรทุก)', budget: 300000 },
       { id: 'B-113', wg: 1, name: 'วัสดุคอมพิวเตอร์', budget: 30000 },
 
-      // WG2
+      // WG2: งานก่อสร้าง (11 หมวด)
       { id: 'B-201', wg: 2, name: 'เงินเดือนข้าราชการ/พนักงานส่วนท้องถิ่น (ก่อสร้าง)', budget: 1596130 },
       { id: 'B-202', wg: 2, name: 'เงินเพิ่มต่าง ๆ ข้าราชการ (ค่าครองชีพ)', budget: 48000 },
       { id: 'B-203', wg: 2, name: 'เงินประจำตำแหน่ง (ก่อสร้าง)', budget: 18000 },
@@ -473,12 +537,44 @@
       { id: 'B-211', wg: 2, name: 'โครงการก่อสร้างพื้นฐาน & ครุภัณฑ์', budget: 15031400 }
     ];
 
+    let state = {
+      isAdmin: false,
+      fiscalYear: '2570',
+      projects: [],
+      budgetFramework: [],
+      selectedFileBase64: null,
+      selectedFileName: null
+    };
+
     document.addEventListener('DOMContentLoaded', () => {
-      populateFilterTypeDropdown();
-      populateTypeDropdown('งานบริหารทั่วไปเกี่ยวกับอุตสาหกรรมและการโยธา');
+      populateVillagesDropdown();
+      populateFilterTypeDropdown(''); // ค่าว่าง = แสดงทุกหมวด
+      populateFormTypeDropdown('งานบริหารทั่วไปเกี่ยวกับอุตสาหกรรมและการโยธา');
       fetchInitialData();
     });
 
+    function populateVillagesDropdown() {
+      const formSel = document.getElementById('form-village-select');
+      const epSel = document.getElementById('ep-modal-village');
+      
+      formSel.innerHTML = '<option value="">-- ไม่ระบุ / งบส่วนกลาง --</option>';
+      epSel.innerHTML = '<option value="0">งบคลัง (งบกลาง / ส่วนกลาง)</option>';
+
+      MASTER_VILLAGES.forEach(v => {
+        formSel.innerHTML += `<option value="${v.no}">หมู่ที่ ${v.no} ${v.name}</option>`;
+        epSel.innerHTML += `<option value="${v.no}">หมู่ที่ ${v.no} ${v.name}</option>`;
+      });
+    }
+
+    function autoFillVillageName() {
+      const vNo = document.getElementById('form-village-select').value;
+      const found = MASTER_VILLAGES.find(v => String(v.no) === String(vNo));
+      document.getElementById('form-village-name').value = found ? found.name : '';
+    }
+
+    /**
+     * ดึงข้อมูลเริ่มต้นจาก Google Apps Script
+     */
     async function fetchInitialData() {
       try {
         const response = await fetch(`${API_URL}?action=getInitialData&fiscalYear=${state.fiscalYear}`);
@@ -530,64 +626,95 @@
     function resetFilters() {
       document.getElementById('search-input').value = '';
       document.getElementById('filter-workgroup').value = '';
-      document.getElementById('filter-type').value = '';
+      populateFilterTypeDropdown('');
       document.getElementById('filter-status').value = '';
       document.getElementById('reset-filter-btn').classList.add('hidden');
       renderProjectsTable(state.projects);
     }
 
-    function populateFilterTypeDropdown() {
-      const select = document.getElementById('filter-type');
-      select.innerHTML = '<option value="">-- ประเภท/หมวดงบทั้งหมด --</option>' + 
-        MASTER_BUDGET_ITEMS.map(i => `<option value="${i.name}">${i.name}</option>`).join('');
+    /**
+     * ระบบ Dependent Dropdown: เมื่อเลือกงานหลัก -> ปรับตัวเลือกหมวดงบประมาณทันที
+     */
+    function handleFilterWorkgroupChange() {
+      const selectedWg = document.getElementById('filter-workgroup').value;
+      populateFilterTypeDropdown(selectedWg);
+      filterProjects();
     }
 
-    function populateTypeDropdown(workGroup) {
+    function populateFilterTypeDropdown(workGroup) {
+      const select = document.getElementById('filter-type');
+      let items = MASTER_BUDGET_ITEMS;
+
+      if (workGroup.includes('บริหารทั่วไป')) {
+        items = MASTER_BUDGET_ITEMS.filter(i => i.wg === 1);
+      } else if (workGroup.includes('ก่อสร้าง')) {
+        items = MASTER_BUDGET_ITEMS.filter(i => i.wg === 2);
+      }
+
+      select.innerHTML = '<option value="">-- ประเภท/หมวดงบทั้งหมด --</option>' + 
+        items.map(i => `<option value="${i.name}">${i.name}</option>`).join('');
+    }
+
+    function populateFormTypeDropdown(workGroup) {
       const select = document.getElementById('form-type');
       const wgNum = workGroup.includes('บริหารทั่วไป') ? 1 : 2;
       const items = MASTER_BUDGET_ITEMS.filter(i => i.wg === wgNum);
       select.innerHTML = items.map(i => `<option value="${i.name}">${i.name}</option>`).join('');
     }
 
+    /**
+     * เรนเดอร์แดชบอร์ดงบประมาณ
+     */
     function renderDashboard() {
       const wg1Container = document.getElementById('wg1-cards-container');
       const wg2Container = document.getElementById('wg2-cards-container');
 
       let wg1TotalDisbursed = 0;
       let wg2TotalDisbursed = 0;
+      let wg1TotalAllocated = 0;
+      let wg2TotalAllocated = 0;
 
       const wg1Items = MASTER_BUDGET_ITEMS.filter(item => item.wg === 1);
       const wg2Items = MASTER_BUDGET_ITEMS.filter(item => item.wg === 2);
 
       wg1Container.innerHTML = wg1Items.map(item => {
+        const itemBudget = getDynamicBudget(item);
+        wg1TotalAllocated += itemBudget;
         const spent = calculateBudgetSpent(item.name);
         wg1TotalDisbursed += spent;
-        const remaining = item.budget - spent;
-        const pct = Math.min(100, (spent / item.budget) * 100);
-        return createCardHtml(item, spent, remaining, pct, 'blue');
+        const remaining = itemBudget - spent;
+        const pct = itemBudget > 0 ? Math.min(100, (spent / itemBudget) * 100) : 0;
+        return createCardHtml(item, itemBudget, spent, remaining, pct, 'blue');
       }).join('');
 
       wg2Container.innerHTML = wg2Items.map(item => {
+        const itemBudget = getDynamicBudget(item);
+        wg2TotalAllocated += itemBudget;
         const spent = calculateBudgetSpent(item.name);
         wg2TotalDisbursed += spent;
-        const remaining = item.budget - spent;
-        const pct = Math.min(100, (spent / item.budget) * 100);
-        return createCardHtml(item, spent, remaining, pct, 'emerald');
+        const remaining = itemBudget - spent;
+        const pct = itemBudget > 0 ? Math.min(100, (spent / itemBudget) * 100) : 0;
+        return createCardHtml(item, itemBudget, spent, remaining, pct, 'emerald');
       }).join('');
 
-      const grandTotalAllocated = 21511470.00;
+      const grandTotalAllocated = wg1TotalAllocated + wg2TotalAllocated;
       const grandTotalDisbursed = wg1TotalDisbursed + wg2TotalDisbursed;
       const grandTotalRemaining = grandTotalAllocated - grandTotalDisbursed;
 
       document.getElementById('dash-total-budget').textContent = formatMoney(grandTotalAllocated) + ' ฿';
       document.getElementById('dash-disbursed-budget').textContent = formatMoney(grandTotalDisbursed) + ' ฿';
-      document.getElementById('dash-disbursed-percent').textContent = `${((grandTotalDisbursed / grandTotalAllocated) * 100).toFixed(2)}% ของกรอบงบรวม`;
+      document.getElementById('dash-disbursed-percent').textContent = grandTotalAllocated > 0 ? `${((grandTotalDisbursed / grandTotalAllocated) * 100).toFixed(2)}% ของกรอบงบรวม` : '0.00%';
 
       document.getElementById('dash-remaining-budget').textContent = formatMoney(grandTotalRemaining) + ' ฿';
-      document.getElementById('dash-remaining-percent').textContent = `${((grandTotalRemaining / grandTotalAllocated) * 100).toFixed(2)}% คงเหลือ`;
+      document.getElementById('dash-remaining-percent').textContent = grandTotalAllocated > 0 ? `${((grandTotalRemaining / grandTotalAllocated) * 100).toFixed(2)}% คงเหลือ` : '0.00%';
 
-      document.getElementById('wg1-summary-badge').textContent = `เบิกจ่าย: ${formatMoney(wg1TotalDisbursed)} / 1,977,580.00 ฿`;
-      document.getElementById('wg2-summary-badge').textContent = `เบิกจ่าย: ${formatMoney(wg2TotalDisbursed)} / 19,533,890.00 ฿`;
+      document.getElementById('wg1-summary-badge').textContent = `เบิกจ่าย: ${formatMoney(wg1TotalDisbursed)} / ${formatMoney(wg1TotalAllocated)} ฿`;
+      document.getElementById('wg2-summary-badge').textContent = `เบิกจ่าย: ${formatMoney(wg2TotalDisbursed)} / ${formatMoney(wg2TotalAllocated)} ฿`;
+    }
+
+    function getDynamicBudget(item) {
+      const match = state.budgetFramework.find(b => b.budgetType === item.name || b.budgetCategory === item.name);
+      return match ? (match.adjustedBudget || match.allocatedBudget || item.budget) : item.budget;
     }
 
     function calculateBudgetSpent(budgetName) {
@@ -596,7 +723,7 @@
         .reduce((sum, p) => sum + (p.disbursedAmount || p.approvedAmount || p.budgetAmount || 0), 0);
     }
 
-    function createCardHtml(item, spent, remaining, pct, colorScheme) {
+    function createCardHtml(item, currentBudget, spent, remaining, pct, colorScheme) {
       const isBlue = colorScheme === 'blue';
       const barColor = isBlue ? 'bg-blue-600' : 'bg-emerald-600';
 
@@ -614,7 +741,7 @@
           <div class="space-y-1 text-[11px] mb-2">
             <div class="flex justify-between text-slate-500">
               <span>ตั้งไว้:</span>
-              <span class="font-semibold text-slate-700">${formatMoney(item.budget)} ฿</span>
+              <span class="font-semibold text-slate-700">${formatMoney(currentBudget)} ฿</span>
             </div>
             <div class="flex justify-between text-slate-500">
               <span>เบิกจ่ายแล้ว:</span>
@@ -634,6 +761,9 @@
       `;
     }
 
+    /**
+     * เรนเดอร์รายการจัดซื้อในตาราง
+     */
     function renderProjectsTable(projects) {
       const tbody = document.getElementById('project-table-body');
       document.getElementById('project-count').textContent = projects.length;
@@ -647,19 +777,24 @@
         const isCompleted = p.currentStatus.includes('ขั้นตอนที่ 8');
         const isEasypass = p.isEasypassSent;
 
+        const locationStr = p.mooNo ? `หมู่ที่ ${p.mooNo} ${p.villageName || ''}` : '';
+
         return `
           <tr class="hover:bg-slate-50 transition border-b border-slate-100">
             <td class="px-3 py-2.5 text-center font-bold text-slate-500 text-xs">${index + 1}</td>
             <td class="px-4 py-2.5">
-              <div class="font-semibold text-slate-800 text-xs">${p.projectName}</div>
-              <div class="text-[11px] text-slate-400 line-clamp-1">${p.activityDetail || '-'}</div>
+              <div class="font-bold text-slate-900 text-xs">${p.projectName}</div>
+              <div class="text-[11px] text-slate-400 flex items-center space-x-2 mt-0.5">
+                <span class="font-mono text-slate-500">${p.id}</span>
+                ${locationStr ? `<span class="text-indigo-600 font-medium"><i class="fa-solid fa-location-dot mr-0.5"></i>${locationStr}</span>` : ''}
+              </div>
             </td>
             <td class="px-4 py-2.5 text-xs">
               <div class="font-semibold text-brand-navy">${p.procurementType}</div>
               <div class="text-slate-400 text-[11px]">${p.workGroup}</div>
             </td>
             <td class="px-4 py-2.5 text-right font-medium text-slate-700 text-xs">${formatMoney(p.budgetAmount)}</td>
-            <td class="px-4 py-2.5 text-right font-medium text-blue-900 text-xs">${formatMoney(p.disbursedAmount || p.approvedAmount || 0)}</td>
+            <td class="px-4 py-2.5 text-right font-bold text-blue-900 text-xs">${formatMoney(p.disbursedAmount || p.approvedAmount || 0)}</td>
             <td class="px-4 py-2.5 text-center">
               <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-medium ${getStatusBadgeClass(p.currentStatus)}">
                 ${p.currentStatus}
@@ -696,6 +831,9 @@
       }).join('');
     }
 
+    /**
+     * กรองรายการจัดซื้อตามฟิลเตอร์
+     */
     function filterProjects() {
       const search = document.getElementById('search-input').value.toLowerCase();
       const workgroup = document.getElementById('filter-workgroup').value;
@@ -703,7 +841,11 @@
       const status = document.getElementById('filter-status').value;
 
       const filtered = state.projects.filter(p => {
-        const matchSearch = p.projectName.toLowerCase().includes(search) || p.procurementType.toLowerCase().includes(search) || (p.activityDetail && p.activityDetail.toLowerCase().includes(search));
+        const matchSearch = p.projectName.toLowerCase().includes(search) || 
+                            p.procurementType.toLowerCase().includes(search) || 
+                            p.id.toLowerCase().includes(search) ||
+                            (p.vendorName && p.vendorName.toLowerCase().includes(search)) ||
+                            (p.activityDetail && p.activityDetail.toLowerCase().includes(search));
         const matchWg = !workgroup || p.workGroup === workgroup;
         const matchType = !type || p.procurementType === type;
         const matchStatus = !status || p.currentStatus.includes(status);
@@ -713,6 +855,7 @@
       renderProjectsTable(filtered);
     }
 
+    // Modal Control & Auth
     function openAuthModal() { document.getElementById('auth-modal').classList.remove('hidden'); }
     function closeAuthModal() { document.getElementById('auth-modal').classList.add('hidden'); }
     
@@ -792,7 +935,7 @@
       document.getElementById('form-id').value = '';
       document.getElementById('modal-title').textContent = 'บันทึกรายการจัดซื้อใหม่';
       document.getElementById('edit-status-container').classList.add('hidden');
-      populateTypeDropdown(document.getElementById('form-workgroup').value);
+      populateFormTypeDropdown(document.getElementById('form-workgroup').value);
       document.getElementById('project-modal').classList.remove('hidden');
     }
     function closeProjectModal() { document.getElementById('project-modal').classList.add('hidden'); }
@@ -803,17 +946,22 @@
 
       document.getElementById('form-id').value = p.id;
       document.getElementById('form-workgroup').value = p.workGroup;
-      populateTypeDropdown(p.workGroup);
+      populateFormTypeDropdown(p.workGroup);
       document.getElementById('form-type').value = p.procurementType;
       document.getElementById('form-name').value = p.projectName;
       document.getElementById('form-detail').value = p.activityDetail;
       document.getElementById('form-budget').value = p.budgetAmount;
       document.getElementById('form-approved').value = p.approvedAmount;
       document.getElementById('form-disbursed').value = p.disbursedAmount;
+      document.getElementById('form-village-select').value = p.mooNo || '';
+      document.getElementById('form-village-name').value = p.villageName || '';
+      document.getElementById('form-officer').value = p.officerInCharge || '';
+      document.getElementById('form-contract-no').value = p.contractNo || '';
+      document.getElementById('form-vendor').value = p.vendorName || '';
       document.getElementById('form-status').value = p.currentStatus;
 
       document.getElementById('edit-status-container').classList.remove('hidden');
-      document.getElementById('modal-title').textContent = `แก้ไขรายการจัดซื้อ`;
+      document.getElementById('modal-title').textContent = `แก้ไขรายการจัดซื้อ: ${p.id}`;
       document.getElementById('project-modal').classList.remove('hidden');
     }
 
@@ -826,6 +974,7 @@
       const formData = {
         id: document.getElementById('form-id').value,
         fiscalYear: state.fiscalYear,
+        quarter: '1',
         workGroup: document.getElementById('form-workgroup').value,
         procurementType: document.getElementById('form-type').value,
         projectName: document.getElementById('form-name').value,
@@ -833,6 +982,11 @@
         budgetAmount: parseFloat(document.getElementById('form-budget').value) || 0,
         approvedAmount: parseFloat(document.getElementById('form-approved').value) || 0,
         disbursedAmount: parseFloat(document.getElementById('form-disbursed').value) || 0,
+        mooNo: parseInt(document.getElementById('form-village-select').value, 10) || 0,
+        villageName: document.getElementById('form-village-name').value,
+        officerInCharge: document.getElementById('form-officer').value,
+        contractNo: document.getElementById('form-contract-no').value,
+        vendorName: document.getElementById('form-vendor').value,
         currentStatus: isEdit ? document.getElementById('form-status').value : 'ขั้นตอนที่ 1 เสนอโครงการ/ขออนุมัติจัดซื้อ'
       };
 
@@ -856,7 +1010,7 @@
     }
 
     async function deleteProject(id) {
-      if (!confirm(`คุณต้องการลบรายการนี้ใช่หรือไม่?`)) return;
+      if (!confirm(`คุณต้องการลบรายการ ${id} ใช่หรือไม่?`)) return;
 
       try {
         const response = await fetch(API_URL, {
@@ -874,6 +1028,7 @@
       }
     }
 
+    // PDF Upload Handlers
     function openUploadModal(projectId) {
       document.getElementById('upload-project-id').value = projectId;
       document.getElementById('upload-modal').classList.remove('hidden');
@@ -925,16 +1080,19 @@
       }
     }
 
+    // Easy Pass Handlers
     function openEasyPassModal(projectId) {
       const p = state.projects.find(item => item.id === projectId);
       if (!p) return;
 
       document.getElementById('ep-project-id').value = p.id;
+      document.getElementById('ep-modal-id').textContent = p.id;
       document.getElementById('ep-modal-name').textContent = p.projectName;
-      document.getElementById('ep-modal-workgroup').textContent = p.workGroup;
+      document.getElementById('ep-modal-type').textContent = p.procurementType;
       
       const amount = p.disbursedAmount || p.approvedAmount || p.budgetAmount || 0;
       document.getElementById('ep-modal-amount').textContent = formatMoney(amount) + ' ฿';
+      document.getElementById('ep-modal-village').value = p.mooNo || 0;
 
       document.getElementById('easypass-modal').classList.remove('hidden');
     }
@@ -945,19 +1103,24 @@
       const submitBtn = document.getElementById('ep-submit-btn');
       submitBtn.disabled = true;
 
+      const vNo = document.getElementById('ep-modal-village').value;
+      const foundV = MASTER_VILLAGES.find(v => String(v.no) === String(vNo));
+      const vName = foundV ? foundV.name : 'งบคลังกลาง';
+
       try {
         const response = await fetch(API_URL, {
           method: 'POST',
           body: JSON.stringify({
             action: 'sendEasyPassDeduction',
             projectId: projectId,
+            payload: { villageNo: vNo, villageName: vName },
             userEmail: 'admin@thako.go.th'
           })
         });
         const result = await response.json();
 
         if (result.success) {
-          alert(`ส่งตัดเงิน Easy Pass สำเร็จ!\nรหัสอ้างอิง: ${result.txId}`);
+          alert(`ส่งตัดเงิน Easy Pass ไปยังระบบงบประมาณพัฒนาหมู่บ้านสำเร็จ!\nรหัสอ้างอิง: ${result.txId}`);
           closeEasyPassModal();
           fetchInitialData();
         }
